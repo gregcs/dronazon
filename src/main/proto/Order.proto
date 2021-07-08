@@ -1,0 +1,9 @@
+syntax = "proto3";
+package grpc.domain;
+import "Position.proto";
+
+message Order{
+  string id = 1;
+  Position pickupPosition = 2;
+  Position deliveryPosition = 3;
+}

@@ -1,0 +1,76 @@
+syntax = "proto3";
+package grpc.domain;
+import "Position.proto";
+import "Order.proto";
+
+message PresentationRequest {
+  int32 id = 1;
+  string ipAddress = 2;
+  int32 portToDrones = 3;
+  Position position = 4;
+}
+
+message PresentationResponse {
+  bool ok = 1;
+  bool master = 2;
+}
+
+message InformationRequest {
+  int32 id = 1; //ID Master Node
+}
+
+message InformationResponse {
+  int32 id = 1; //Drone id
+  Position position = 2;
+  int32 batteryLevel = 3;
+}
+
+message OrderRequest{
+   int32 id = 1;//Master drone Id
+   Order order = 2;
+}
+
+message OrderResponse{
+  int32 id = 1; //Drone Id
+  int64 arrivalTimestamp = 2;
+  Position newPosition = 3;
+  double kmTraveled = 4;
+  repeated double measurementMeans = 5;
+  int32 batteryLevel = 6;
+}
+
+message ElectionRequest{
+  int32 idFrom = 1;
+  int32 idElection = 2;
+  int32 batteryLevelElection = 3;
+}
+
+message ElectionResponse{
+  int32 idFrom = 1;
+}
+
+message ElectedRequest{
+  int32 idFrom = 1;
+  int32 idElected = 2;
+}
+
+message ElectedResponse{
+  int32 idFrom = 1;
+}
+
+message PingRequest{
+  int32 idFrom = 1; //idDrone
+}
+
+message PingResponse{
+  int32 idFrom = 1; //idMaster
+}
+
+service DroneService {
+  rpc presentation(PresentationRequest) returns (PresentationResponse);
+  rpc droneInformation(InformationRequest) returns (InformationResponse);
+  rpc order(OrderRequest) returns (OrderResponse);
+  rpc election(ElectionRequest) returns (ElectionResponse);
+  rpc elected(ElectedRequest) returns (ElectedResponse);
+  rpc ping(PingRequest) returns (PingResponse);
+}
