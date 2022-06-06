@@ -1,4 +1,4 @@
-# Dronazon - SDP 2021 project
+# Dronazon - DPS course project 2021
 
 ## 1 Description of the project
 
